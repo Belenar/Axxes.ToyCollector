@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Axxes.ToyCollector.Core.Contracts\Axxes.ToyCollector.Core.Contracts.csproj" />
+    <ProjectReference Include="..\Axxes.ToyCollector.DependencyResolution\Axxes.ToyCollector.DependencyResolution.csproj" />
+  </ItemGroup>
+
+</Project>

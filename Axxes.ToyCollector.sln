@@ -1,0 +1,80 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Web", "Axxes.ToyCollector.Web\Axxes.ToyCollector.Web.csproj", "{040723FE-3AAB-4637-A686-B1238A0C7911}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Core.Logic", "Axxes.ToyCollector.Core.Logic\Axxes.ToyCollector.Core.Logic.csproj", "{D87042C6-1C6C-4203-BF07-B655AAF7FBD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Core.Contracts", "Axxes.ToyCollector.Core.Contracts\Axxes.ToyCollector.Core.Contracts.csproj", "{78168562-CA77-403E-ABE2-98BFF1113114}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.DataAccess", "Axxes.ToyCollector.DataAccess\Axxes.ToyCollector.DataAccess.csproj", "{E48C2900-7126-4EB5-8C55-09C51DD9CE75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.DependencyResolution", "Axxes.ToyCollector.DependencyResolution\Axxes.ToyCollector.DependencyResolution.csproj", "{B716BB18-8522-4C0E-BB76-7D5248EA4031}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Plugins.Lego", "Axxes.ToyCollector.Plugins.Lego\Axxes.ToyCollector.Plugins.Lego.csproj", "{7E326D4E-6D9B-49C3-A900-1E82631D5EA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Plugins.Marbles", "Axxes.ToyCollector.Plugins.Marbles\Axxes.ToyCollector.Plugins.Marbles.csproj", "{05CCAEB0-05F3-4FA4-A6F8-3BF4A81A3974}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Core", "1-Core", "{6E01CD49-E61D-4EFB-A699-DFE6F16DCE3F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-DI", "2-DI", "{A0E35DC2-FD55-466E-B2C5-3E67290A19D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Data", "3-Data", "{6A2480F4-624D-44A1-A3D1-B9ED386AF3E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Web", "4-Web", "{E167C364-5FF0-408C-B531-5CE6F7E0244F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Plugins", "5-Plugins", "{0FC9B43D-C085-4C3F-8EEB-219B5219E458}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{040723FE-3AAB-4637-A686-B1238A0C7911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{040723FE-3AAB-4637-A686-B1238A0C7911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{040723FE-3AAB-4637-A686-B1238A0C7911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{040723FE-3AAB-4637-A686-B1238A0C7911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D87042C6-1C6C-4203-BF07-B655AAF7FBD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D87042C6-1C6C-4203-BF07-B655AAF7FBD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D87042C6-1C6C-4203-BF07-B655AAF7FBD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D87042C6-1C6C-4203-BF07-B655AAF7FBD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78168562-CA77-403E-ABE2-98BFF1113114}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78168562-CA77-403E-ABE2-98BFF1113114}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78168562-CA77-403E-ABE2-98BFF1113114}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78168562-CA77-403E-ABE2-98BFF1113114}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E48C2900-7126-4EB5-8C55-09C51DD9CE75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E48C2900-7126-4EB5-8C55-09C51DD9CE75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E48C2900-7126-4EB5-8C55-09C51DD9CE75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E48C2900-7126-4EB5-8C55-09C51DD9CE75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B716BB18-8522-4C0E-BB76-7D5248EA4031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B716BB18-8522-4C0E-BB76-7D5248EA4031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B716BB18-8522-4C0E-BB76-7D5248EA4031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B716BB18-8522-4C0E-BB76-7D5248EA4031}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E326D4E-6D9B-49C3-A900-1E82631D5EA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E326D4E-6D9B-49C3-A900-1E82631D5EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E326D4E-6D9B-49C3-A900-1E82631D5EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E326D4E-6D9B-49C3-A900-1E82631D5EA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05CCAEB0-05F3-4FA4-A6F8-3BF4A81A3974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05CCAEB0-05F3-4FA4-A6F8-3BF4A81A3974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05CCAEB0-05F3-4FA4-A6F8-3BF4A81A3974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05CCAEB0-05F3-4FA4-A6F8-3BF4A81A3974}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{040723FE-3AAB-4637-A686-B1238A0C7911} = {E167C364-5FF0-408C-B531-5CE6F7E0244F}
+		{D87042C6-1C6C-4203-BF07-B655AAF7FBD8} = {6E01CD49-E61D-4EFB-A699-DFE6F16DCE3F}
+		{78168562-CA77-403E-ABE2-98BFF1113114} = {6E01CD49-E61D-4EFB-A699-DFE6F16DCE3F}
+		{E48C2900-7126-4EB5-8C55-09C51DD9CE75} = {6A2480F4-624D-44A1-A3D1-B9ED386AF3E7}
+		{B716BB18-8522-4C0E-BB76-7D5248EA4031} = {A0E35DC2-FD55-466E-B2C5-3E67290A19D8}
+		{7E326D4E-6D9B-49C3-A900-1E82631D5EA5} = {0FC9B43D-C085-4C3F-8EEB-219B5219E458}
+		{05CCAEB0-05F3-4FA4-A6F8-3BF4A81A3974} = {0FC9B43D-C085-4C3F-8EEB-219B5219E458}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E204D83C-DBB5-4373-9A1A-DB09E95B7E60}
+	EndGlobalSection
+EndGlobal
