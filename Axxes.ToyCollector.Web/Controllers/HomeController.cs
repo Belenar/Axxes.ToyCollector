@@ -11,8 +11,12 @@ namespace Axxes.ToyCollector.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        private readonly IToyRepository _repo;
+
+        public HomeController(IToyRepository repo)
         {
+            _repo = repo;
+            var toys = repo.GetAll();
         }
         public IActionResult Index()
         {

@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Web", "Axxes.ToyCollector.Web\Axxes.ToyCollector.Web.csproj", "{040723FE-3AAB-4637-A686-B1238A0C7911}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.Web", "Axxes.ToyCollector.Web\Axxes.ToyCollector.Web.csproj", "{040723FE-3AAB-4637-A686-B1238A0C7911}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Core.Logic", "Axxes.ToyCollector.Core.Logic\Axxes.ToyCollector.Core.Logic.csproj", "{D87042C6-1C6C-4203-BF07-B655AAF7FBD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.Core.Logic", "Axxes.ToyCollector.Core.Logic\Axxes.ToyCollector.Core.Logic.csproj", "{D87042C6-1C6C-4203-BF07-B655AAF7FBD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Core.Contracts", "Axxes.ToyCollector.Core.Contracts\Axxes.ToyCollector.Core.Contracts.csproj", "{78168562-CA77-403E-ABE2-98BFF1113114}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.Core.Contracts", "Axxes.ToyCollector.Core.Contracts\Axxes.ToyCollector.Core.Contracts.csproj", "{78168562-CA77-403E-ABE2-98BFF1113114}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.DataAccess", "Axxes.ToyCollector.DataAccess\Axxes.ToyCollector.DataAccess.csproj", "{E48C2900-7126-4EB5-8C55-09C51DD9CE75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.DataAccess", "Axxes.ToyCollector.DataAccess\Axxes.ToyCollector.DataAccess.csproj", "{E48C2900-7126-4EB5-8C55-09C51DD9CE75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.DependencyResolution", "Axxes.ToyCollector.DependencyResolution\Axxes.ToyCollector.DependencyResolution.csproj", "{B716BB18-8522-4C0E-BB76-7D5248EA4031}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.DependencyResolution", "Axxes.ToyCollector.DependencyResolution\Axxes.ToyCollector.DependencyResolution.csproj", "{B716BB18-8522-4C0E-BB76-7D5248EA4031}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Plugins.Lego", "Axxes.ToyCollector.Plugins.Lego\Axxes.ToyCollector.Plugins.Lego.csproj", "{7E326D4E-6D9B-49C3-A900-1E82631D5EA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.Plugins.Lego", "Axxes.ToyCollector.Plugins.Lego\Axxes.ToyCollector.Plugins.Lego.csproj", "{7E326D4E-6D9B-49C3-A900-1E82631D5EA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Plugins.Marbles", "Axxes.ToyCollector.Plugins.Marbles\Axxes.ToyCollector.Plugins.Marbles.csproj", "{05CCAEB0-05F3-4FA4-A6F8-3BF4A81A3974}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.Plugins.Marbles", "Axxes.ToyCollector.Plugins.Marbles\Axxes.ToyCollector.Plugins.Marbles.csproj", "{05CCAEB0-05F3-4FA4-A6F8-3BF4A81A3974}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Core", "1-Core", "{6E01CD49-E61D-4EFB-A699-DFE6F16DCE3F}"
 EndProject
@@ -26,6 +26,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Web", "4-Web", "{E167C364-5FF0-408C-B531-5CE6F7E0244F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Plugins", "5-Plugins", "{0FC9B43D-C085-4C3F-8EEB-219B5219E458}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{E3E0BE11-7DDA-430D-B629-CBF85821E8EE}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

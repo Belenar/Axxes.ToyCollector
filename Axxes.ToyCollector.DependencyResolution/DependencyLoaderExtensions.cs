@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using Axxes.ToyCollector.Core.Contracts.DependencyResolution;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Axxes.ToyCollector.DependencyResolution
 {
@@ -16,9 +17,9 @@ namespace Axxes.ToyCollector.DependencyResolution
         /// </summary>
         /// <param name="builder">The Autofac <see cref="ContainerBuilder"/> to register the types in.</param>
         /// <param name="directory">The directory to scan.</param>
-        public static void LoadConfiguredTypesFromDir(this ContainerBuilder builder, string directory)
+        public static void LoadConfiguredTypesFromDir(this IServiceCollection serviceCollection, string directory)
         {
-            var container = new TypeRegistrationContainer(builder);
+            var container = new TypeRegistrationContainer(serviceCollection);
 
             var dllFiles = Directory.GetFiles(directory, "Axxes.ToyCollector.*.dll", SearchOption.AllDirectories);
 

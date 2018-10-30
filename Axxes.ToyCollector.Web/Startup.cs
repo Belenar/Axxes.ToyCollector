@@ -2,6 +2,7 @@
 using System.IO;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Axxes.ToyCollector.Core.Contracts.DependencyResolution.Options;
 using Axxes.ToyCollector.DependencyResolution;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,7 +10,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting.Internal;
 
 namespace Axxes.ToyCollector.Web
 {
@@ -36,6 +36,8 @@ namespace Axxes.ToyCollector.Web
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.Configure<DatabaseConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
 
             return CreateApplicationServiceProvider(services);
         }
@@ -70,12 +72,12 @@ namespace Axxes.ToyCollector.Web
         public IContainer ApplicationContainer { get; private set; }
         private IServiceProvider CreateApplicationServiceProvider(IServiceCollection services)
         {
+            // Scan the startup path for DLL's and register their types
+            services.LoadConfiguredTypesFromDir(Path.Combine(Environment.ContentRootPath, "bin"));
+
             var builder = new ContainerBuilder();
 
             builder.Populate(services);
-
-            // Scan the startup path for DLL's and register their types
-            builder.LoadConfiguredTypesFromDir(Path.Combine(Environment.ContentRootPath, "bin"));
 
             ApplicationContainer = builder.Build();
 

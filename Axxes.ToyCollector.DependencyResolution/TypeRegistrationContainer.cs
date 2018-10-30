@@ -1,39 +1,57 @@
-﻿using Autofac;
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using Autofac;
 using Axxes.ToyCollector.Core.Contracts.DependencyResolution;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Axxes.ToyCollector.DependencyResolution
 {
     class TypeRegistrationContainer : ITypeRegistrationContainer
     {
-        private readonly ContainerBuilder _builder;
+        private readonly IServiceCollection _services;
 
-        public TypeRegistrationContainer(ContainerBuilder builder)
+        public TypeRegistrationContainer(IServiceCollection services)
         {
-            _builder = builder;
+            _services = services;
         }
 
-        public void RegisterSingleton<TContract, TImplementation>() where TImplementation : class, TContract
+        void ITypeRegistrationContainer.RegisterSingleton<TContract, TImplementation>()
         {
-            _builder
-                .RegisterType<TImplementation>()
-                .As<TContract>()
-                .SingleInstance();
+            _services.AddSingleton(typeof(TContract), typeof(TImplementation));
         }
 
-        public void RegisterPerRequest<TContract, TImplementation>() where TImplementation : class, TContract
+        void ITypeRegistrationContainer.RegisterPerRequest<TContract, TImplementation>()
         {
-            _builder
-                .RegisterType<TImplementation>()
-                .As<TContract>()
-                .InstancePerLifetimeScope();
+            _services.AddScoped(typeof(TContract), typeof(TImplementation));
         }
 
-        public void RegisterTransient<TContract, TImplementation>() where TImplementation : class, TContract
+        void ITypeRegistrationContainer.RegisterTransient<TContract, TImplementation>()
         {
-            _builder
-                .RegisterType<TImplementation>()
-                .As<TContract>()
-                .InstancePerDependency();
+            _services.AddTransient(typeof(TContract), typeof(TImplementation));
+        }
+
+        void ITypeRegistrationContainer.RegisterDbContext<TDbContext>()
+        {
+            var registeringType = typeof(TDbContext);
+            if (!typeof(DbContext).IsAssignableFrom(registeringType))
+                throw new ArgumentException($"The generic type parameter should inherit from DbContext. {registeringType} does not inherit from DbContext");
+
+            var methods = typeof(EntityFrameworkServiceCollectionExtensions)
+                .GetMethods();
+
+            var method = methods.Single(m =>
+                m.Name == "AddDbContext" && 
+                m.IsStatic && 
+                m.IsGenericMethod && 
+                m.GetGenericArguments().Length == 1 &&
+                m.GetParameters().Length == 4 &&
+                m.GetParameters()[1].ParameterType == typeof(Action<DbContextOptionsBuilder>));
+            
+            var genericMethod = method.MakeGenericMethod(registeringType);
+
+            genericMethod.Invoke(null, new object[] {_services, null, null, null});
         }
     }
 }
