@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Axxes.ToyCollector.Core.Contracts.DependencyResolution;
@@ -15,12 +15,10 @@ namespace Axxes.ToyCollector.DependencyResolution
         /// the DI container.
         /// </summary>
         /// <param name="serviceCollection">The <see cref="IServiceCollection"/> to register the types in.</param>
-        /// <param name="directory">The directory to scan.</param>
-        public static void LoadConfiguredTypesFromDir(this IServiceCollection serviceCollection, string directory)
+        /// <param name="dllFiles">The paths of all dll files to scan.</param>
+        public static void LoadConfiguredTypesFromDir(this IServiceCollection serviceCollection, IEnumerable<string> dllFiles)
         {
             var container = new TypeRegistrationContainer(serviceCollection);
-
-            var dllFiles = Directory.GetFiles(directory, "Axxes.ToyCollector.*.dll", SearchOption.AllDirectories);
 
             foreach (var dllFile in dllFiles)
             {

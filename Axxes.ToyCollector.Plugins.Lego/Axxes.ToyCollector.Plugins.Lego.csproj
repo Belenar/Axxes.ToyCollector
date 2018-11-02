@@ -1,15 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Axxes.ToyCollector.Core.Contracts\Axxes.ToyCollector.Core.Contracts.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy $(TargetDir)*.dll $(SolutionDir)\Axxes.ToyCollector.Web\bin\Debug\netcoreapp2.1\ /y&#xD;&#xA;xcopy $(TargetDir)*.pdb $(SolutionDir)\Axxes.ToyCollector.Web\bin\Debug\netcoreapp2.1\ /y&#xD;&#xA;xcopy $(TargetDir)*.deps.json $(SolutionDir)\Axxes.ToyCollector.Web\bin\Debug\netcoreapp2.1\ /y" />
+    <Exec Command="xcopy $(TargetDir)*.dll $(SolutionDir)\Axxes.ToyCollector.Web\bin\Debug\netcoreapp2.1\ /y&#xD;&#xA;xcopy $(TargetDir)*.pdb $(SolutionDir)\Axxes.ToyCollector.Web\bin\Debug\netcoreapp2.1\ /y" />
   </Target>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Views\**\*.cshtml" />
+  </ItemGroup>
 </Project>
