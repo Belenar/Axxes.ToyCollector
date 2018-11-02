@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
-using Autofac;
 using Axxes.ToyCollector.Core.Contracts.DependencyResolution;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,7 +49,7 @@ namespace Axxes.ToyCollector.DependencyResolution
             
             var genericMethod = method.MakeGenericMethod(registeringType);
 
-            genericMethod.Invoke(null, new object[] {_services, null, null, null});
+            genericMethod.Invoke(null, new object[] {_services, null, ServiceLifetime.Scoped, ServiceLifetime.Singleton});
         }
     }
 }

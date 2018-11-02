@@ -2,6 +2,7 @@
 using System.IO;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Axxes.ToyCollector.Core.Contracts.Database;
 using Axxes.ToyCollector.Core.Contracts.DependencyResolution.Options;
 using Axxes.ToyCollector.DependencyResolution;
 using Microsoft.AspNetCore.Builder;
@@ -45,10 +46,11 @@ namespace Axxes.ToyCollector.Web
         
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDatabaseInitializer databaseInit)
         {
             if (env.IsDevelopment())
             {
+                databaseInit.Initialize();
                 app.UseDeveloperExceptionPage();
             }
             else
