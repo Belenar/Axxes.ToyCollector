@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{E3E0BE11-7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.Plugins.Lego", "Axxes.ToyCollector.Plugins.Lego\Axxes.ToyCollector.Plugins.Lego.csproj", "{9D89768B-C594-4492-A6E3-00C230043787}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Plugins.Marbles", "Axxes.ToyCollector.Plugins.Marbles\Axxes.ToyCollector.Plugins.Marbles.csproj", "{C4CBF228-F0FD-4EF3-A360-41376DBBF29E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{9D89768B-C594-4492-A6E3-00C230043787}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D89768B-C594-4492-A6E3-00C230043787}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D89768B-C594-4492-A6E3-00C230043787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4CBF228-F0FD-4EF3-A360-41376DBBF29E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4CBF228-F0FD-4EF3-A360-41376DBBF29E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4CBF228-F0FD-4EF3-A360-41376DBBF29E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4CBF228-F0FD-4EF3-A360-41376DBBF29E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{E48C2900-7126-4EB5-8C55-09C51DD9CE75} = {6A2480F4-624D-44A1-A3D1-B9ED386AF3E7}
 		{B716BB18-8522-4C0E-BB76-7D5248EA4031} = {A0E35DC2-FD55-466E-B2C5-3E67290A19D8}
 		{9D89768B-C594-4492-A6E3-00C230043787} = {0FC9B43D-C085-4C3F-8EEB-219B5219E458}
+		{C4CBF228-F0FD-4EF3-A360-41376DBBF29E} = {0FC9B43D-C085-4C3F-8EEB-219B5219E458}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E204D83C-DBB5-4373-9A1A-DB09E95B7E60}
