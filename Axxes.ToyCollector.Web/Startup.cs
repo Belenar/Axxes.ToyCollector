@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Axxes.ToyCollector.Web
 {
@@ -46,6 +47,8 @@ namespace Axxes.ToyCollector.Web
             LoadAllPlugins(services, mvcBuilder);
 
             services.Configure<DatabaseConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info{Title = "Toy Collector API", Version = "v1"}); });
 
             return CreateApplicationServiceProvider(services);
         }
@@ -104,6 +107,10 @@ namespace Axxes.ToyCollector.Web
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Toy Collector API v1"); });
 
             app.UseMvc(routes =>
             {

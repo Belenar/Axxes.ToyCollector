@@ -19,5 +19,25 @@ namespace Axxes.ToyCollector.DataAccess.Repositories
         {
             return _context.Toys.ToList();
         }
+
+        public Toy GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Create(Toy value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(int id, Toy value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
