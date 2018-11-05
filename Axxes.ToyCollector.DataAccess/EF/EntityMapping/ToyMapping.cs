@@ -12,6 +12,10 @@ namespace Axxes.ToyCollector.DataAccess.EF.EntityMapping
                 .Property(t => t.Description)
                 .HasMaxLength(250)
                 .HasColumnType("varchar(250)");
+
+            builder
+                .Property(t => t.AcquiredDate)
+                .HasColumnType("date");
         }
     }
 }

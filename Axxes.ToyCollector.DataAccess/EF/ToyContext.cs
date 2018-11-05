@@ -10,17 +10,20 @@ namespace Axxes.ToyCollector.DataAccess.EF
 {
     public class ToyContext : DbContext
     {
-        private readonly IEnumerable<IExtendToyContext> _extensions;
-        private readonly DatabaseConnectionStrings _connectionStrings;
+        protected IEnumerable<IExtendToyContext> _extensions;
+        protected DatabaseConnectionStrings _connectionStrings;
+
         public ToyContext(IOptions<DatabaseConnectionStrings> connectionStrings, IEnumerable<IExtendToyContext> extensions)
         {
             _extensions = extensions;
-            _connectionStrings = connectionStrings.Value;
+            _connectionStrings = connectionStrings?.Value;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_connectionStrings.ToyDbConnection);
+            optionsBuilder
+                .UseSqlServer(_connectionStrings.ToyDbConnection,
+                    b => b.MigrationsAssembly("Axxes.ToyCollector.Migrations.EFCore"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
