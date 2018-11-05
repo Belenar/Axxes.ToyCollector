@@ -25,10 +25,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Plugins", "5-Plugins", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{E3E0BE11-7DDA-430D-B629-CBF85821E8EE}"
 	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Plugins.Lego", "Axxes.ToyCollector.Plugins.Lego\Axxes.ToyCollector.Plugins.Lego.csproj", "{9D89768B-C594-4492-A6E3-00C230043787}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.Plugins.Lego", "Axxes.ToyCollector.Plugins.Lego\Axxes.ToyCollector.Plugins.Lego.csproj", "{9D89768B-C594-4492-A6E3-00C230043787}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
