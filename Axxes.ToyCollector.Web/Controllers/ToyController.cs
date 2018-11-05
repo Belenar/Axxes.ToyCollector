@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Axxes.ToyCollector.Core.Contracts.DataStructures;
 using Axxes.ToyCollector.Core.Contracts.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -18,37 +20,72 @@ namespace Axxes.ToyCollector.Web.Controllers
 
         // GET: api/Toy
         [HttpGet]
-        public IEnumerable<Toy> Get()
+        public async Task<ActionResult<List<Toy>>> Get()
         {
-            return _repository.GetAll();
+            return await _repository.GetAll();
         }
 
         // GET: api/Toy/5
         [HttpGet("{id}", Name = "Get")]
-        public Toy Get(int id)
-        {
-            return _repository.GetById(id);
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<Toy>> Get(int id)
+        { 
+            try
+            {
+                return await _repository.GetById(id);
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
         // POST: api/Toy
         [HttpPost]
-        public void Post([FromBody] Toy value)
+        [ProducesResponseType(500)]
+        public async Task<ActionResult> Post([FromBody] Toy value)
         {
-            _repository.Create(value);
+            try
+            {
+                await _repository.Create(value);
+                return CreatedAtAction(nameof(Get), new {id = value.Id}, value);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         // PUT: api/Toy/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Toy value)
+        [ProducesResponseType(404)]
+        public async Task<ActionResult> Put(int id, [FromBody] Toy value)
         {
-            _repository.Update(id, value);
+            try
+            {
+                await _repository.Update(id, value);
+                return Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [ProducesResponseType(404)]
+        public async Task<ActionResult> Delete(int id)
         {
-            _repository.Delete(id);
+            try
+            {
+                await _repository.Delete(id);
+                return Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
         }
     }
 }

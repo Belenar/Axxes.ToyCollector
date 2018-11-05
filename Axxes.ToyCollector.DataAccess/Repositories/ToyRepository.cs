@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using Axxes.ToyCollector.Core.Contracts.DataStructures;
 using Axxes.ToyCollector.Core.Contracts.Repositories;
 using Axxes.ToyCollector.DataAccess.EF;
+using Microsoft.EntityFrameworkCore;
 
 namespace Axxes.ToyCollector.DataAccess.Repositories
 {
@@ -15,29 +16,50 @@ namespace Axxes.ToyCollector.DataAccess.Repositories
         {
             _context = context;
         }
-        public IEnumerable<Toy> GetAll()
+        public async Task<List<Toy>> GetAll()
         {
-            return _context.Toys.ToList();
+            return await _context.Toys.ToListAsync();
         }
 
-        public Toy GetById(int id)
+        public async Task<Toy> GetById(int id)
         {
-            throw new NotImplementedException();
+            var item = await _context.Toys.FindAsync(id);
+
+            if (item == null)
+                throw new ArgumentException($"Entity with ID {id} not found.");
+
+            return item;
         }
 
-        public void Create(Toy value)
+        public async Task Create(Toy value)
         {
-            throw new NotImplementedException();
+            await _context.Toys.AddAsync(value);
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(int id, Toy value)
+        public async Task Update(int id, Toy value)
         {
-            throw new NotImplementedException();
+            var item = await _context.Toys.FindAsync(id);
+
+            if (item == null)
+                throw new ArgumentException($"Entity with ID {id} not found.");
+
+            if (value.GetType().IsInstanceOfType(item))
+            {
+                //TODO: updater logic
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var item = await _context.Toys.FindAsync(id);
+
+            if (item == null)
+                throw new ArgumentException($"Entity with ID {id} not found.");
+
+            _context.Toys.Remove(item);
+            await _context.SaveChangesAsync();
         }
     }
 }

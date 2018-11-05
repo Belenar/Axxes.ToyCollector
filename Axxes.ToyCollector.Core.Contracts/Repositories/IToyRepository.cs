@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Axxes.ToyCollector.Core.Contracts.DataStructures;
 
 namespace Axxes.ToyCollector.Core.Contracts.Repositories
 {
     public interface IToyRepository
     {
-        IEnumerable<Toy> GetAll();
-        Toy GetById(int id);
-        void Create(Toy value);
-        void Update(int id, Toy value);
-        void Delete(int id);
+        Task<List<Toy>> GetAll();
+        Task<Toy> GetById(int id);
+        Task Create(Toy value);
+        Task Update(int id, Toy value);
+        Task Delete(int id);
     }
 }
