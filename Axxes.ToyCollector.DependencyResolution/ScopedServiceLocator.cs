@@ -16,5 +16,12 @@ namespace Axxes.ToyCollector.DependencyResolution
         {
             return _provider.GetService(type);
         }
+
+        public object ResolveGenericType(Type genericType, params Type[] genericParameters)
+        {
+            var genericInterfaceType = genericType.MakeGenericType(genericParameters);
+
+            return Resolve(genericInterfaceType);
+        }
     }
 }

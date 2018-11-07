@@ -29,12 +29,10 @@ namespace Axxes.ToyCollector.Core.Logic.Services
 
         private void RunCustomLogic(Toy toy)
         {
+            var creatorInterfaceType = typeof(IToyCreatorCustomLogic<>);
             var toyType = toy.GetType();
 
-            var creatorInterfaceType = typeof(IToyCreatorCustomLogic<>);
-            var genericInterfaceType = creatorInterfaceType.MakeGenericType(toyType);
-
-            var creator = (IToyCreatorCustomLogic)_serviceLocator.Resolve(genericInterfaceType);
+            var creator = (IToyCreatorCustomLogic)_serviceLocator.ResolveGenericType(creatorInterfaceType, toyType);
 
             creator.Execute(toy);
         }
