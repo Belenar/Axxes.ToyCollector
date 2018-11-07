@@ -1,4 +1,4 @@
-﻿using Axxes.ToyCollector.Core.Contracts.DataStructures;
+﻿using Axxes.ToyCollector.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

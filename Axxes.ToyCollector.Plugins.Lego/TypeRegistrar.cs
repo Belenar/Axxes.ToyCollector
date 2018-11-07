@@ -1,6 +1,9 @@
 ﻿using Axxes.ToyCollector.Core.Contracts.DependencyResolution;
+using Axxes.ToyCollector.Core.Contracts.Services;
 using Axxes.ToyCollector.DataAccess.Contracts.EF;
 using Axxes.ToyCollector.Plugins.Lego.DataAccess;
+using Axxes.ToyCollector.Plugins.Lego.Logic;
+using Axxes.ToyCollector.Plugins.Lego.Models;
 
 namespace Axxes.ToyCollector.Plugins.Lego
 {
@@ -8,6 +11,7 @@ namespace Axxes.ToyCollector.Plugins.Lego
     {
         public void RegisterServices(ITypeRegistrationContainer container)
         {
+            container.RegisterTransient<IToyCreatorCustomLogic<LegoSet>, LegoSetCreatorCustomLogic>();
             container.RegisterSingleton<IExtendToyContext, ToyContextLegoExtension>(); 
         }
     }

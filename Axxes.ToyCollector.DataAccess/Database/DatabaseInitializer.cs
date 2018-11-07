@@ -18,10 +18,7 @@ namespace Axxes.ToyCollector.DataAccess.Database
         {
 
             if (!_isInitialized)
-            {
-                _context.Database.EnsureDeleted();
-                _context.Database.EnsureCreated();
-                _context.Dispose();
+            { 
                 _isInitialized = true;
             }
         }

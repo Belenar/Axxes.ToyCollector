@@ -1,4 +1,4 @@
-﻿namespace Axxes.ToyCollector.Core.Contracts.DataStructures
+﻿namespace Axxes.ToyCollector.Core.Models
 {
     public enum ToyCondition
     {

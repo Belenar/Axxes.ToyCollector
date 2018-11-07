@@ -4,8 +4,4 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Axxes.ToyCollector.Core.Models\Axxes.ToyCollector.Core.Models.csproj" />
-  </ItemGroup>
-
 </Project>

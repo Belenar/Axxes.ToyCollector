@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Axxes.ToyCollector.Core.Contracts.DataStructures;
+using Axxes.ToyCollector.Core.Models;
 using Axxes.ToyCollector.Core.Contracts.Repositories;
+using Axxes.ToyCollector.Core.Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Axxes.ToyCollector.Web.Controllers
@@ -12,10 +13,12 @@ namespace Axxes.ToyCollector.Web.Controllers
     public class ToyController : ControllerBase
     {
         private readonly IToyRepository _repository;
+        private readonly IToyCreator _toyCreator;
 
-        public ToyController(IToyRepository repository)
+        public ToyController(IToyRepository repository, IToyCreator toyCreator)
         {
             _repository = repository;
+            _toyCreator = toyCreator;
         }
 
         // GET: api/Toy
@@ -47,7 +50,7 @@ namespace Axxes.ToyCollector.Web.Controllers
         {
             try
             {
-                await _repository.Create(value);
+                await _toyCreator.CreateToy(value);
                 return CreatedAtAction(nameof(Get), new {id = value.Id}, value);
             }
             catch (Exception)

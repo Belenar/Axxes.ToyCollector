@@ -30,8 +30,7 @@ namespace Axxes.ToyCollector.Web
         }
 
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment Environment { get; }
-        
+        public IHostingEnvironment Environment { get; }      
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -45,6 +44,7 @@ namespace Axxes.ToyCollector.Web
 
             var mvcBuilder = services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            // Allows the passing of JSON $type parameters ...
             mvcBuilder.AddJsonOptions(jsonOptions => jsonOptions.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto);
 
             LoadAllPlugins(services, mvcBuilder);
@@ -72,13 +72,13 @@ namespace Axxes.ToyCollector.Web
             LoadViewsFromPlugins(services, mvcPlugins);
         }
 
-        
-
         private void LoadControllersFromPlugins(IMvcBuilder builder, IEnumerable<string> pluginFiles)
         {
             foreach (var dllFile in pluginFiles)
             {
                 var assembly = Assembly.LoadFrom(dllFile);
+
+                // Registers the ASP.NET Core controllers to be used in this application
                 builder.AddApplicationPart(assembly);
             }
         }
@@ -90,6 +90,8 @@ namespace Axxes.ToyCollector.Web
                 foreach (var mvcView in mvcViews)
                 {
                     var assembly = Assembly.LoadFrom(mvcView);
+
+                    // Registers the embedded Razor Views to be used in this application
                     options.FileProviders.Add(new EmbeddedFileProvider(assembly));
                 }
             });

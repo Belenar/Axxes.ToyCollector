@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Axxes.ToyCollector.Core.Contracts.DataStructures;
 using Axxes.ToyCollector.Core.Contracts.Repositories;
+using Axxes.ToyCollector.Core.Models;
 using Axxes.ToyCollector.DataAccess.EF;
 using Microsoft.EntityFrameworkCore;
 

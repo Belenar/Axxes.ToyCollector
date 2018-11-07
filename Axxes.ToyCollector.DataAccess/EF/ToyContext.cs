@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Axxes.ToyCollector.Core.Contracts.DataStructures;
 using Axxes.ToyCollector.Core.Contracts.DependencyResolution.Options;
+using Axxes.ToyCollector.Core.Models;
 using Axxes.ToyCollector.DataAccess.Contracts.EF;
 using Axxes.ToyCollector.DataAccess.EF.EntityMapping;
 using Microsoft.EntityFrameworkCore;
@@ -10,8 +10,8 @@ namespace Axxes.ToyCollector.DataAccess.EF
 {
     public class ToyContext : DbContext
     {
-        protected IEnumerable<IExtendToyContext> _extensions;
-        protected DatabaseConnectionStrings _connectionStrings;
+        private readonly IEnumerable<IExtendToyContext> _extensions;
+        private readonly DatabaseConnectionStrings _connectionStrings;
 
         public ToyContext(IOptions<DatabaseConnectionStrings> connectionStrings, IEnumerable<IExtendToyContext> extensions)
         {

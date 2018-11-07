@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Axxes.ToyCollector.Core.Contracts.DataStructures;
+using Axxes.ToyCollector.Core.Models;
 
 namespace Axxes.ToyCollector.Core.Contracts.Repositories
 {

@@ -1,5 +1,5 @@
 ﻿using System;
-using Axxes.ToyCollector.Core.Contracts.DataStructures;
+using Axxes.ToyCollector.Core.Models;
 
 namespace Axxes.ToyCollector.Plugins.Lego.Models
 {
