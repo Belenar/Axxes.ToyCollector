@@ -12,10 +12,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -42,7 +41,11 @@ namespace Axxes.ToyCollector.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            var mvcBuilder = services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            var mvcBuilder = 
+                services
+                    .AddMvc()
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                    .ConfigureApplicationPartManager(LoadRazorViewsFromPlugins);
 
             // Allows the passing of JSON $type parameters ...
             mvcBuilder.AddJsonOptions(jsonOptions => jsonOptions.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto);
@@ -56,6 +59,15 @@ namespace Axxes.ToyCollector.Web
             return CreateApplicationServiceProvider(services);
         }
 
+        private void LoadRazorViewsFromPlugins(ApplicationPartManager apm)
+        {
+            var allRazorViewsDlls = Directory.GetFiles(Path.Combine(Environment.ContentRootPath, "bin"), "Axxes.ToyCollector.Plugins.*.Views.dll", SearchOption.AllDirectories);
+            foreach (string razorViewsDll in allRazorViewsDlls)
+            {
+                apm.ApplicationParts.Add(new CompiledRazorAssemblyPart(Assembly.LoadFrom(razorViewsDll)));
+            }
+        }
+
         private void LoadAllPlugins(IServiceCollection services, IMvcBuilder mvcBuilder)
         {
             var allDeployedDllFiles = Directory.GetFiles(Path.Combine(Environment.ContentRootPath, "bin"), "Axxes.ToyCollector.*.dll", SearchOption.AllDirectories);
@@ -67,9 +79,6 @@ namespace Axxes.ToyCollector.Web
             
             // Setup MVC controllers
             LoadControllersFromPlugins(mvcBuilder, mvcPlugins);
-
-            // Setup MVC Views
-            LoadViewsFromPlugins(services, mvcPlugins);
         }
 
         private void LoadControllersFromPlugins(IMvcBuilder builder, IEnumerable<string> pluginFiles)
@@ -81,20 +90,6 @@ namespace Axxes.ToyCollector.Web
                 // Registers the ASP.NET Core controllers to be used in this application
                 builder.AddApplicationPart(assembly);
             }
-        }
-
-        private void LoadViewsFromPlugins(IServiceCollection services, IEnumerable<string> mvcViews)
-        {
-            services.Configure<RazorViewEngineOptions>(options =>
-            {
-                foreach (var mvcView in mvcViews)
-                {
-                    var assembly = Assembly.LoadFrom(mvcView);
-
-                    // Registers the embedded Razor Views to be used in this application
-                    options.FileProviders.Add(new EmbeddedFileProvider(assembly));
-                }
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
