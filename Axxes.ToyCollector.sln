@@ -33,13 +33,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.Plugins.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.Plugins.Marbles", "Axxes.ToyCollector.Plugins.Marbles\Axxes.ToyCollector.Plugins.Marbles.csproj", "{C4CBF228-F0FD-4EF3-A360-41376DBBF29E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.DataAccess.Contracts", "Axxes.ToyCollector.DataAccess.Contracts\Axxes.ToyCollector.DataAccess.Contracts.csproj", "{8E5B9864-0A58-482B-94FA-9C7C21C2FA12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.DataAccess.Contracts", "Axxes.ToyCollector.DataAccess.Contracts\Axxes.ToyCollector.DataAccess.Contracts.csproj", "{8E5B9864-0A58-482B-94FA-9C7C21C2FA12}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6-Migrations", "6-Migrations", "{4273D6E3-3BA3-4896-9307-29048322893C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Migrations.EFCore", "Axxes.ToyCollector.Migrations.EFCore\Axxes.ToyCollector.Migrations.EFCore.csproj", "{A7DBF62D-3094-4C08-9CBE-445028390FFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.Migrations.EFCore", "Axxes.ToyCollector.Migrations.EFCore\Axxes.ToyCollector.Migrations.EFCore.csproj", "{A7DBF62D-3094-4C08-9CBE-445028390FFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axxes.ToyCollector.Core.Models", "Axxes.ToyCollector.Core.Models\Axxes.ToyCollector.Core.Models.csproj", "{22C32008-A675-497E-BA34-1E1BBB85B670}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Axxes.ToyCollector.Core.Models", "Axxes.ToyCollector.Core.Models\Axxes.ToyCollector.Core.Models.csproj", "{22C32008-A675-497E-BA34-1E1BBB85B670}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

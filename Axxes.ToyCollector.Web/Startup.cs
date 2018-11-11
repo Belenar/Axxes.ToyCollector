@@ -98,7 +98,13 @@ namespace Axxes.ToyCollector.Web
         {
             if (env.IsDevelopment())
             {
-                databaseInit.Initialize();
+                var pluginDlls = Directory.GetFiles(
+                    Path.Combine(Environment.ContentRootPath, "bin"), "Axxes.ToyCollector.Plugins.*.dll",
+                    SearchOption.AllDirectories)
+                    .Where(p => !p.EndsWith(".Views.dll"))
+                    .ToArray();
+
+                databaseInit.Initialize(pluginDlls);
                 app.UseDeveloperExceptionPage();
             }
             else

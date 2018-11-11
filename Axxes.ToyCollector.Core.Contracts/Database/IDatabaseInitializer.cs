@@ -2,6 +2,6 @@
 {
     public interface IDatabaseInitializer
     {
-        void Initialize();
+        void Initialize(string[] pluginAssemblies);
     }
 }
