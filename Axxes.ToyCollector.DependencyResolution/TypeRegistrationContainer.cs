@@ -32,9 +32,13 @@ namespace Axxes.ToyCollector.DependencyResolution
 
         void ITypeRegistrationContainer.RegisterDbContext<TDbContext>()
         {
+            // The reason this was not done with a generic constraint is that it brings an
+            // Entity Framework dependency on the contract of the type registration container.
+
             var registeringType = typeof(TDbContext);
             if (!typeof(DbContext).IsAssignableFrom(registeringType))
-                throw new ArgumentException($"The generic type parameter should inherit from DbContext. {registeringType} does not inherit from DbContext");
+                throw new ArgumentException("The generic type parameter should inherit from DbContext. "+ 
+                                            $"{registeringType} does not inherit from DbContext");
 
             var methods = typeof(EntityFrameworkServiceCollectionExtensions)
                 .GetMethods();
@@ -49,7 +53,8 @@ namespace Axxes.ToyCollector.DependencyResolution
             
             var genericMethod = method.MakeGenericMethod(registeringType);
 
-            genericMethod.Invoke(null, new object[] {_services, null, ServiceLifetime.Scoped, ServiceLifetime.Singleton});
+            genericMethod.Invoke(null, 
+                new object[] {_services, null, ServiceLifetime.Scoped, ServiceLifetime.Singleton});
         }
     }
 }

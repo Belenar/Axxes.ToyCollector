@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -22,78 +21,80 @@ namespace Axxes.ToyCollector.Web
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
+
         public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
             Environment = environment;
         }
 
-        public IConfiguration Configuration { get; }
-        public IHostingEnvironment Environment { get; }      
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            var mvcBuilder = 
-                services
-                    .AddMvc()
+            var mvcBuilder = services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                    .ConfigureApplicationPartManager(LoadRazorViewsFromPlugins);
+                    .ConfigureApplicationPartManager(LoadAspnetApplicationPlugins);
 
-            // Allows the passing of JSON $type parameters ...
-            mvcBuilder.AddJsonOptions(jsonOptions => jsonOptions.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto);
+            // Allows the passing of JSON $type parameters (required for inherited types)
+            mvcBuilder.AddJsonOptions(
+                jsonOptions => jsonOptions.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto);
 
             LoadAllPlugins(services, mvcBuilder);
 
             services.Configure<DatabaseConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
 
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info{Title = "Toy Collector API", Version = "v1"}); });
+            services.AddSwaggerGen(c => 
+                { c.SwaggerDoc("v1", new Info{Title = "Toy Collector API", Version = "v1"}); }
+            );
 
             return CreateApplicationServiceProvider(services);
         }
 
-        private void LoadRazorViewsFromPlugins(ApplicationPartManager apm)
+        private void LoadAspnetApplicationPlugins(ApplicationPartManager apm)
         {
-            var allRazorViewsDlls = Directory.GetFiles(Path.Combine(Environment.ContentRootPath, "bin"), "Axxes.ToyCollector.Plugins.*.Views.dll", SearchOption.AllDirectories);
+            var allPluginDlls = Directory.GetFiles(
+                Path.Combine(Environment.ContentRootPath, "bin"), "Axxes.ToyCollector.Plugins.*.dll", 
+                SearchOption.AllDirectories);
+
+            var allControllerDlls = allPluginDlls.Where(p => !p.EndsWith("Views.dll"));
+            var allRazorViewsDlls = allPluginDlls.Where(p => p.EndsWith("Views.dll"));
+
+            // Add MVC/API controllers from Plugins
+            foreach (string controllerDll in allControllerDlls)
+            {
+                apm.ApplicationParts.Add(
+                    new AssemblyPart(Assembly.LoadFrom(controllerDll)));
+            }
+
+            // Add Razor views from Plugins
             foreach (string razorViewsDll in allRazorViewsDlls)
             {
-                apm.ApplicationParts.Add(new CompiledRazorAssemblyPart(Assembly.LoadFrom(razorViewsDll)));
+                apm.ApplicationParts.Add(
+                    new CompiledRazorAssemblyPart(Assembly.LoadFrom(razorViewsDll)));
             }
         }
 
         private void LoadAllPlugins(IServiceCollection services, IMvcBuilder mvcBuilder)
         {
-            var allDeployedDllFiles = Directory.GetFiles(Path.Combine(Environment.ContentRootPath, "bin"), "Axxes.ToyCollector.*.dll", SearchOption.AllDirectories);
-
             // Scan the startup path for DLL's and register their types
-            services.LoadConfiguredTypesFromDir(allDeployedDllFiles);
+            var allDeployedDllFiles = Directory.GetFiles(
+                Path.Combine(Environment.ContentRootPath, "bin"),"Axxes.ToyCollector.*.dll", 
+                SearchOption.AllDirectories);
 
-            var mvcPlugins = allDeployedDllFiles.Where(f => f.Contains("Axxes.ToyCollector.Plugins") && !f.EndsWith("Views.dll"));
-            
-            // Setup MVC controllers
-            LoadControllersFromPlugins(mvcBuilder, mvcPlugins);
+            services.LoadConfiguredTypesFromFiles(allDeployedDllFiles);
         }
 
-        private void LoadControllersFromPlugins(IMvcBuilder builder, IEnumerable<string> pluginFiles)
-        {
-            foreach (var dllFile in pluginFiles)
-            {
-                var assembly = Assembly.LoadFrom(dllFile);
-
-                // Registers the ASP.NET Core controllers to be used in this application
-                builder.AddApplicationPart(assembly);
-            }
-        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDatabaseInitializer databaseInit)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            IDatabaseInitializer databaseInit)
         {
             if (env.IsDevelopment())
             {
@@ -110,7 +111,8 @@ namespace Axxes.ToyCollector.Web
 
             app.UseSwagger();
 
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Toy Collector API v1"); });
+            app.UseSwaggerUI(
+                c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Toy Collector API v1"); });
 
             app.UseMvc(routes =>
             {

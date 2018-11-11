@@ -1,5 +1,4 @@
 ﻿using Axxes.ToyCollector.Core.Contracts.DependencyResolution;
-using Axxes.ToyCollector.Core.Contracts.Services;
 
 namespace Axxes.ToyCollector.DependencyResolution
 {

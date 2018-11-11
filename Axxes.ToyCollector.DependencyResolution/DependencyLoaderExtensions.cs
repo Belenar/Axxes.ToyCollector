@@ -10,15 +10,16 @@ namespace Axxes.ToyCollector.DependencyResolution
     public static class DependencyLoaderExtensions
     {
         /// <summary>
-        /// Scans the directory for DLL's and loads them. If a class implementing
+        /// Loads the DLL's and scans their types using Reflection. If a class implementing
         /// <see cref="ITypeRegistrar"/> is found, it is executed, thus adding these types to
         /// the DI container.
         /// </summary>
-        /// <param name="serviceCollection">The <see cref="IServiceCollection"/> to register the types in.</param>
+        /// <param name="services">The <see cref="IServiceCollection"/> to register the types in.</param>
         /// <param name="dllFiles">The paths of all dll files to scan.</param>
-        public static void LoadConfiguredTypesFromDir(this IServiceCollection serviceCollection, IEnumerable<string> dllFiles)
+        public static void LoadConfiguredTypesFromFiles(
+            this IServiceCollection services, IEnumerable<string> dllFiles)
         {
-            var container = new TypeRegistrationContainer(serviceCollection);
+            var container = new TypeRegistrationContainer(services);
 
             foreach (var dllFile in dllFiles)
             {
@@ -33,7 +34,7 @@ namespace Axxes.ToyCollector.DependencyResolution
             var types = assembly.GetTypes();
 
             foreach (var registrarType in types
-                .Where(t => typeof(ITypeRegistrar).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract))
+                .Where(t => typeof(ITypeRegistrar).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract))       
             {
                 RunRegistrar(container, registrarType);
             }

@@ -13,7 +13,9 @@ namespace Axxes.ToyCollector.DataAccess.EF
         private readonly IEnumerable<IExtendToyContext> _extensions;
         private readonly DatabaseConnectionStrings _connectionStrings;
 
-        public ToyContext(IOptions<DatabaseConnectionStrings> connectionStrings, IEnumerable<IExtendToyContext> extensions)
+        public ToyContext(
+            IOptions<DatabaseConnectionStrings> connectionStrings, 
+            IEnumerable<IExtendToyContext> extensions)
         {
             _extensions = extensions;
             _connectionStrings = connectionStrings?.Value;

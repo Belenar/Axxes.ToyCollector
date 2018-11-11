@@ -1,5 +1,3 @@
-using System;
-
 namespace Axxes.ToyCollector.Web.Models
 {
     public class ErrorViewModel
