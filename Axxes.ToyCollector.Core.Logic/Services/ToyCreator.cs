@@ -32,10 +32,12 @@ namespace Axxes.ToyCollector.Core.Logic.Services
             var creatorInterfaceType = typeof(IToyCreatorCustomLogic<>);
             var toyType = toy.GetType();
 
-            var creator = 
-                (IToyCreatorCustomLogic)_serviceLocator.ResolveGenericType(creatorInterfaceType, toyType);
+            var creator = _serviceLocator.ResolveGenericType(creatorInterfaceType, toyType);
 
-            creator.Execute(toy);
+            if (creator != null && creator is IToyCreatorCustomLogic logic)
+            {
+                logic.Execute(toy);
+            }
         }
     }
 }

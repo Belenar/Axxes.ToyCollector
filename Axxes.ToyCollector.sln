@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Plugins", "5-Plugins", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{E3E0BE11-7DDA-430D-B629-CBF85821E8EE}"
 	ProjectSection(SolutionItems) = preProject
+		CodeMap.dgml = CodeMap.dgml
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
