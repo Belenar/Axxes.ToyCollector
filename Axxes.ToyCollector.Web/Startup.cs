@@ -46,7 +46,7 @@ namespace Axxes.ToyCollector.Web
             mvcBuilder.AddJsonOptions(
                 jsonOptions => jsonOptions.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto);
 
-            LoadAllPlugins(services, mvcBuilder);
+            LoadAllPlugins(services);
 
             services.Configure<DatabaseConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
 
@@ -81,7 +81,7 @@ namespace Axxes.ToyCollector.Web
             }
         }
 
-        private void LoadAllPlugins(IServiceCollection services, IMvcBuilder mvcBuilder)
+        private void LoadAllPlugins(IServiceCollection services)
         {
             // Scan the startup path for DLL's and register their types
             var allDeployedDllFiles = Directory.GetFiles(

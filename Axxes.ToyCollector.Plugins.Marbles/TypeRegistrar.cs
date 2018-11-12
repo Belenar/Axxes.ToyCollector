@@ -1,5 +1,5 @@
-﻿using Axxes.ToyCollector.Core.Contracts.DependencyResolution;
-using Axxes.ToyCollector.DataAccess.Contracts.EF;
+﻿using Axxes.ToyCollector.Core.Contracts.Database;
+using Axxes.ToyCollector.Core.Contracts.DependencyResolution;
 using Axxes.ToyCollector.Plugins.Marbles.DataAccess;
 
 namespace Axxes.ToyCollector.Plugins.Marbles

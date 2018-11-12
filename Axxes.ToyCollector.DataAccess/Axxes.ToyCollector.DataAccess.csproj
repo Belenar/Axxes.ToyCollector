@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Axxes.ToyCollector.Core.Contracts\Axxes.ToyCollector.Core.Contracts.csproj" />
-    <ProjectReference Include="..\Axxes.ToyCollector.DataAccess.Contracts\Axxes.ToyCollector.DataAccess.Contracts.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

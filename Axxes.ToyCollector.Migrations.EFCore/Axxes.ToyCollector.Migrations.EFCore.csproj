@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Axxes.ToyCollector.DataAccess.Contracts\Axxes.ToyCollector.DataAccess.Contracts.csproj" />
     <ProjectReference Include="..\Axxes.ToyCollector.DataAccess\Axxes.ToyCollector.DataAccess.csproj" />
   </ItemGroup>
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using Axxes.ToyCollector.Core.Contracts.Database;
 using Axxes.ToyCollector.Core.Contracts.DependencyResolution.Options;
 using Axxes.ToyCollector.Core.Models;
-using Axxes.ToyCollector.DataAccess.Contracts.EF;
 using Axxes.ToyCollector.DataAccess.EF.EntityMapping;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
