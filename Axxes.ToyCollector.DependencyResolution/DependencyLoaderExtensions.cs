@@ -15,21 +15,22 @@ namespace Axxes.ToyCollector.DependencyResolution
         /// the DI container.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> to register the types in.</param>
+        /// <param name="inheritedTypesRegistry">The <see cref="IInheritedTypesRegistry"/>> to resolve inherited types.</param>
         /// <param name="dllFiles">The paths of all dll files to scan.</param>
         public static void LoadConfiguredTypesFromFiles(
-            this IServiceCollection services, IEnumerable<string> dllFiles)
+            this IServiceCollection services, IInheritedTypesRegistry inheritedTypesRegistry, IEnumerable<string> dllFiles)
         {
             var container = new TypeRegistrationContainer(services);
 
             foreach (var dllFile in dllFiles)
             {
-                LoadAssembly(container, dllFile);
+                LoadAssembly(container, inheritedTypesRegistry, dllFile);
             }
         }
 
-        private static void LoadAssembly(ITypeRegistrationContainer container, string dllFile)
-        {
-            var assembly = Assembly.LoadFrom(dllFile);
+        private static void LoadAssembly(ITypeRegistrationContainer container, IInheritedTypesRegistry inheritedTypesRegistry, string dllFile)
+        { 
+            var assembly = Assembly.LoadFile(dllFile);
 
             var types = assembly.GetTypes();
 
@@ -38,6 +39,12 @@ namespace Axxes.ToyCollector.DependencyResolution
             {
                 RunRegistrar(container, registrarType);
             }
+
+            foreach (var typeRegistrarType in types
+                .Where(t => typeof(IInheritedTypeRegistrar).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract))
+            {
+                RunInheritedTypesRegistrar(inheritedTypesRegistry, typeRegistrarType);
+            }
         }
 
         private static void RunRegistrar(ITypeRegistrationContainer container, Type registrarType)
@@ -45,6 +52,13 @@ namespace Axxes.ToyCollector.DependencyResolution
             var registrar = (ITypeRegistrar)Activator.CreateInstance(registrarType);
 
             registrar.RegisterServices(container);
+        }
+
+        private static void RunInheritedTypesRegistrar(IInheritedTypesRegistry typeRegistry, Type typeRegistrarType)
+        {
+            var registrar = (IInheritedTypeRegistrar)Activator.CreateInstance(typeRegistrarType);
+
+            registrar.RegisterInheritedTypes(typeRegistry);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using Axxes.ToyCollector.Core.Contracts.DependencyResolution;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Axxes.ToyCollector.DependencyResolution
 {

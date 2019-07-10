@@ -7,6 +7,7 @@ using Autofac.Extensions.DependencyInjection;
 using Axxes.ToyCollector.Core.Contracts.Database;
 using Axxes.ToyCollector.Core.Contracts.DependencyResolution.Options;
 using Axxes.ToyCollector.DependencyResolution;
+using Axxes.ToyCollector.Web.ModelBinding;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -39,14 +40,18 @@ namespace Axxes.ToyCollector.Web
             });
 
             var mvcBuilder = services.AddMvc()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                     .ConfigureApplicationPartManager(LoadAspnetApplicationPlugins);
 
-            // Allows the passing of JSON $type parameters (required for inherited types)
-            mvcBuilder.AddJsonOptions(
-                jsonOptions => jsonOptions.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto);
+            var inheritedTypesRegistry = new InheritedTypesRegistry();
 
-            LoadAllPlugins(services);
+            LoadAllPlugins(services, inheritedTypesRegistry);
+
+            // Allows the passing of JSON $type parameters (required for inherited types)
+            mvcBuilder.AddJsonOptions(jsonOptions =>
+            {
+                jsonOptions.SerializerSettings.Converters.Add(new InheritedTypesJsonConverter(inheritedTypesRegistry));
+            });
 
             services.Configure<DatabaseConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
 
@@ -81,14 +86,14 @@ namespace Axxes.ToyCollector.Web
             }
         }
 
-        private void LoadAllPlugins(IServiceCollection services)
+        private void LoadAllPlugins(IServiceCollection services, InheritedTypesRegistry inheritedTypesRegistry)
         {
             // Scan the startup path for DLL's and register their types
             var allDeployedDllFiles = Directory.GetFiles(
                 Path.Combine(Environment.ContentRootPath, "bin"),"Axxes.ToyCollector.*.dll", 
                 SearchOption.AllDirectories);
 
-            services.LoadConfiguredTypesFromFiles(allDeployedDllFiles);
+            services.LoadConfiguredTypesFromFiles(inheritedTypesRegistry, allDeployedDllFiles);
         }
 
 
