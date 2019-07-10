@@ -8,18 +8,18 @@ namespace Axxes.ToyCollector.Web.ModelBinding
     public class InheritedTypesJsonConverter : JsonConverter
     {
         private const string TypePropertyName = "$type";
-        private readonly InheritedTypesRegistry _typesRegistry;
+        private readonly InheritedTypesRegistry _inheritedTypesRegistry;
 
-        public InheritedTypesJsonConverter(InheritedTypesRegistry typesRegistry)
+        public InheritedTypesJsonConverter(InheritedTypesRegistry inheritedTypesRegistry)
         {
-            _typesRegistry = typesRegistry;
+            _inheritedTypesRegistry = inheritedTypesRegistry;
         }
         
         public override bool CanWrite => false;
 
         public override bool CanConvert(Type objectType)
         {
-            return _typesRegistry.CanConvert(objectType);
+            return _inheritedTypesRegistry.CanConvert(objectType);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -33,7 +33,7 @@ namespace Axxes.ToyCollector.Web.ModelBinding
 
             var typeName = jObject[TypePropertyName]?.Value<string>();
 
-            var target = _typesRegistry.CreateType(objectType, typeName);
+            var target = _inheritedTypesRegistry.CreateType(objectType, typeName);
 
             serializer.Populate(jObject.CreateReader(), target);
             return target;
