@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -39,25 +40,26 @@ namespace Axxes.ToyCollector.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            var mvcBuilder = services.AddMvc()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                    .ConfigureApplicationPartManager(LoadAspnetApplicationPlugins);
+            var mvcBuilder = services.AddMvc(opt => opt.EnableEndpointRouting = false)
+                .ConfigureApplicationPartManager(LoadAspnetApplicationPlugins);
 
             var inheritedTypesRegistry = new InheritedTypesRegistry();
 
             LoadAllPlugins(services, inheritedTypesRegistry);
 
             // Allows the passing of JSON $type parameters (required for inherited types)
-            mvcBuilder.AddJsonOptions(jsonOptions =>
+            mvcBuilder.AddNewtonsoftJson(jsonOptions =>
             {
                 jsonOptions.SerializerSettings.Converters.Add(new InheritedTypesJsonConverter(inheritedTypesRegistry));
             });
 
             services.Configure<DatabaseConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
 
-            services.AddSwaggerGen(c => 
-                { c.SwaggerDoc("v1", new Info{Title = "Toy Collector API", Version = "v1"}); }
-            );
+            services
+                .AddSwaggerGen(c => 
+                    { c.SwaggerDoc("v1", new OpenApiInfo{Title = "Toy Collector API", Version = "v1"}); }
+                )
+                .AddSwaggerGenNewtonsoftSupport();
 
             return CreateApplicationServiceProvider(services);
         }
@@ -68,21 +70,14 @@ namespace Axxes.ToyCollector.Web
                 Path.Combine(Environment.ContentRootPath, "bin"), "Axxes.ToyCollector.Plugins.*.dll", 
                 SearchOption.AllDirectories);
 
-            var allControllerDlls = allPluginDlls.Where(p => !p.EndsWith("Views.dll"));
-            var allRazorViewsDlls = allPluginDlls.Where(p => p.EndsWith("Views.dll"));
-
-            // Add MVC/API controllers from Plugins
-            foreach (string controllerDll in allControllerDlls)
+            
+            foreach (string pluginDll in allPluginDlls)
             {
-                apm.ApplicationParts.Add(
-                    new AssemblyPart(Assembly.LoadFrom(controllerDll)));
-            }
-
-            // Add Razor views from Plugins
-            foreach (string razorViewsDll in allRazorViewsDlls)
-            {
-                apm.ApplicationParts.Add(
-                    new CompiledRazorAssemblyPart(Assembly.LoadFrom(razorViewsDll)));
+                var assembly = Assembly.LoadFrom(pluginDll);
+                // Add MVC/API controllers from Plugins
+                apm.ApplicationParts.Add(new AssemblyPart(assembly));
+                // Add Razor views from Plugins
+                apm.ApplicationParts.Add(new CompiledRazorAssemblyPart(assembly));
             }
         }
 
